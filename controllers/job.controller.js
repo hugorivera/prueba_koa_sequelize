@@ -1,5 +1,3 @@
-const { find } = require("./company.controller");
-
 module.exports = {
     async create(ctx){
         try {
@@ -28,7 +26,7 @@ module.exports = {
                 ]
             })
         } catch (error) {
-            tx.throw(500, error)
+            ctx.throw(500, error)
         }
     }
 }

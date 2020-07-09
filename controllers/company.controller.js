@@ -4,8 +4,8 @@ module.exports = {
             ctx.body = await ctx.db.Company.create({
                 name: ctx.request.body.name,
                 city: ctx.request.body.city,
-                address: ctx.request.body.address
-                // UserId: ctx.state.user
+                address: ctx.request.body.address,
+                UserId: ctx.state.user
             });
 
         }
@@ -17,11 +17,14 @@ module.exports = {
     async find(ctx){
         try {
             ctx.body = await ctx.db.Company.findAll({
-                include:[
-                    {
-                        model: ctx.db.Job
-                    }
-                ]
+                where:{
+                    UserId: ctx.state.user,
+                    include:[
+                        {
+                            model: ctx.db.Job
+                        }
+                    ]
+                }
             });
         } catch (error) {
             ctx.throw(500, error);
